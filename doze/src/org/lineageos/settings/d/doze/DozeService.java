@@ -92,7 +92,8 @@ public class DozeService extends Service {
 
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
-        if (DozeUtils.isPickUpEnabled(this)) {
+        if (DozeUtils.isPickUpEnabled(this) ||
+                DozeUtils.isRaiseToWakeEnabled(this)) {
             if(!alwaysOnEnabled) mPickupSensor.disable();
         }
         if (DozeUtils.isPocketGestureEnabled(this)) {
@@ -102,7 +103,8 @@ public class DozeService extends Service {
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
-        if (DozeUtils.isPickUpEnabled(this)) {
+        if (DozeUtils.isPickUpEnabled(this) ||
+                DozeUtils.isRaiseToWakeEnabled(this)) {
             if(!alwaysOnEnabled) mPickupSensor.enable();
         }
         if (DozeUtils.isPocketGestureEnabled(this)) {

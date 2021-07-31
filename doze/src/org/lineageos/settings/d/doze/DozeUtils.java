@@ -44,6 +44,8 @@ public final class DozeUtils {
     private static final boolean DEBUG = false;
     private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
 
+    protected static final String GESTURE_RAISE_TO_WAKE_KEY = "gesture_raise_to_wake";
+
     public static void startService(Context context) {
         if (DEBUG) Log.d(TAG, "Starting service");
         context.startServiceAsUser(new Intent(context, DozeService.class),
@@ -106,14 +108,17 @@ public final class DozeUtils {
     protected static boolean isPickUpEnabled(Context context) {
         return isGestureEnabled(context, GESTURE_PICK_UP_KEY);
     }
-    
+
+    protected static boolean isRaiseToWakeEnabled(Context context) {
+        return isGestureEnabled(context, GESTURE_RAISE_TO_WAKE_KEY);
+    }
         
     protected static boolean isPocketGestureEnabled(Context context) {
         return isGestureEnabled(context, GESTURE_POCKET_KEY);
     }
 
     public static boolean sensorsEnabled(Context context) {
-        return isPickUpEnabled(context) || isPocketGestureEnabled(context);    
+        return isPickUpEnabled(context) || isRaiseToWakeEnabled(context) || isPocketGestureEnabled(context);    
     }
 
     protected static Sensor getSensor(SensorManager sm, String type) {
